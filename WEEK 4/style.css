@@ -1,0 +1,72 @@
+/* ===============================
+   General Background & Text
+   =============================== */
+body, .block-container {
+    background-color: #0E1117;
+    color: #FAFAFA;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* ===============================
+   Sidebar
+   =============================== */
+[data-testid="stSidebar"] {
+    background-color: #1f1f1f;
+    padding: 20px;
+}
+
+/* Sidebar title */
+[data-testid="stSidebar"] h1 {
+    color: #FF4B4B;
+}
+
+/* Sidebar links */
+[data-testid="stSidebar"] .css-1d391kg {
+    color: #FAFAFA;
+}
+
+/* Selected menu item */
+[data-testid="stSidebar"] .css-1d391kg[aria-selected="true"] {
+    background-color: #FF4B4B;
+    color: white;
+}
+
+/* ===============================
+   Buttons
+   =============================== */
+.stButton>button {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.stButton>button:hover {
+    background-color: #45a049;
+}
+
+/* ===============================
+   Headers and Text
+   =============================== */
+h1, h2, h3, h4 {
+    color: #FF4B4B;
+}
+
+.markdown-text-container p {
+    color: #FAFAFA;
+}
+
+/* ===============================
+   DataFrames
+   =============================== */
+.css-1d391kg table {
+    background-color: #1f1f1f;
+    color: #FAFAFA;
+}
+
+.css-1d391kg th {
+    color: #FF4B4B;
+}
