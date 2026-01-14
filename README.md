@@ -103,3 +103,5 @@ SHAP plots are included to provide **transparent, actionable insights** for main
 * **Project Type:** Internship – First  ML Project
 
  Follow the on-screen instructions to interact with the application, submit input data, and view predictions.
+ <img width="1917" height="1007" alt="f1" src="https://github.com/user-attachments/assets/726b2505-844b-4a5c-a5bb-8323123d53f2" />
+
