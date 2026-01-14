@@ -105,3 +105,10 @@ SHAP plots are included to provide **transparent, actionable insights** for main
  Follow the on-screen instructions to interact with the application, submit input data, and view predictions.
  <img width="1917" height="1007" alt="f1" src="https://github.com/user-attachments/assets/726b2505-844b-4a5c-a5bb-8323123d53f2" />
 
+
+
+ <img width="1912" height="1006" alt="f2" src="https://github.com/user-attachments/assets/8ffd846d-09ea-4423-9a5b-dcff2335a98d" />
+
+<img width="1917" height="1008" alt="f3" src="https://github.com/user-attachments/assets/90a84e1f-e71f-46e5-886d-9cf2dfa46554" />
+
+
