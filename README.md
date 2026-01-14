@@ -1,59 +1,105 @@
-# Predictive Maintenance Dashboard Documentation
+ FactoryGuard AI – IoT Predictive Maintenance Engine
 
-## Introduction
-The Predictive Maintenance Dashboard is an interactive web application designed to provide insights into predictive maintenance for industrial machinery. It offers features for data visualization, historical data analysis, input data submission, and prediction results.
+ 📌 Project Overview
 
-## Features
-1. **Home:** Welcome page providing an overview of the application.
-2. **Historical Data:** View historical data of machinery sensor readings and operational hours.
-3. **Input Data:** Submit input data for prediction, either manually or by generating random values.
-4. **Results:** Display predictions for remaining useful life (RUL), maintenance status, and anomaly detection based on the input data.
-5. **Visualizations:** Visualize historical sensor data and operational hours through histograms, scatter plots, and line charts. Optionally overlay generated input values on visualizations.
+"FactoryGuard AI" is an end-to-end **IoT Predictive Maintenance system** designed to predict catastrophic equipment failures **24 hours in advance** using time-series sensor data.
 
-## Technologies Used
-- **Streamlit:** Python library for building interactive web applications.
-- **Pandas:** Data manipulation and analysis library.
-- **NumPy:** Numerical computing library.
-- **Matplotlib:** Data visualization library for creating static, animated, and interactive visualizations.
-- **Seaborn:** Data visualization library based on Matplotlib for statistical graphics.
-- **scikit-learn:** Machine learning library for predictive modeling and data analysis.
-- **GitHub:** Version control repository for project collaboration and code management.
+This project was developed as my **first project during my internship at Zaalima Development Pvt. Ltd.** and focuses on building a **production-ready machine learning pipeline** rather than just model experimentation.
 
-## Installation
-1. Clone the repository from GitHub: `git clone https://github.com/your_username/predictive-maintenance-dashboard.git`
-2. Install the required Python packages: `pip install -r requirements.txt`
-3. Run the Streamlit application: `streamlit run app.py`
+The system targets a real-world manufacturing scenario involving **500 robotic arms** equipped with vibration, temperature, and pressure sensors, where unexpected downtime can result in massive financial losses.
 
-## Usage
-1. Launch the application using the provided installation instructions.
-2. Navigate through the different sections using the sidebar menu:
-   - **Home:** Provides a brief introduction to the application.
-   - **Historical Data:** Displays historical sensor data and operational hours.
-   - **Input Data:** Allows users to submit input data for prediction.
-   - **Results:** Shows predictions for RUL, maintenance status, and anomaly detection based on the input data.
-   - **Visualizations:** Visualizes historical data and optionally overlays generated input values.
-3. Follow the on-screen instructions to interact with the application, submit input data, and view predictions.
+Use Case
+
+A critical manufacturing plant floor continuously streams sensor data from robotic arms. Failures are rare (<1%) but extremely costly.
+
+Objective:
+
+* Predict catastrophic failures "24 hours before occurrence"
+* Enable scheduled preventive maintenance
+* Reduce false alarms while maintaining high precision
 
 
-![image](https://github.com/rohanmatt/Predictive-Maintenance-for-Industrial-Equipment/assets/77683536/9f46c40f-eb92-4b75-9e5d-2605258f00bc)
+ 🧠 Key Features
 
-![image](https://github.com/rohanmatt/Predictive-Maintenance-for-Industrial-Equipment/assets/77683536/587463f2-f741-42c4-b4f8-3c62f6a9fde6)
+🔹 Time-Series Feature Engineering
 
-![image](https://github.com/rohanmatt/Predictive-Maintenance-for-Industrial-Equipment/assets/77683536/02a71a6e-3993-4507-9905-d028879f380c)
+* Rolling Mean, Exponential Moving Average (EMA)
+* Rolling Standard Deviation
+* Lag Features (t-1, t-2)
+* Time windows: **1 hour, 6 hours, 12 hours**
+* Efficient feature generation using **Pandas**
 
-![image](https://github.com/rohanmatt/Predictive-Maintenance-for-Industrial-Equipment/assets/77683536/f23c6a82-db94-496c-8a56-d84ce3c3274b)
+ 🔹 Modeling Strategy
 
-![image](https://github.com/rohanmatt/Predictive-Maintenance-for-Industrial-Equipment/assets/77683536/eaa2b499-2691-4828-825a-91346737b507)
+* **Baseline Models:** Logistic Regression, Random Forest
+* **Production Models:** XGBoost, LightGBM
+* Hyperparameter tuning using **GridSearchCV / Optuna**
 
-![image](https://github.com/rohanmatt/Predictive-Maintenance-for-Industrial-Equipment/assets/77683536/88303e44-acde-45cf-bfba-d8b51018f34b)
+ 🔹 Extreme Class Imbalance Handling
 
-![image](https://github.com/rohanmatt/Predictive-Maintenance-for-Industrial-Equipment/assets/77683536/16c834df-bf50-4d2c-ae70-21f2c1b3800f)
+* Failure events < **1% of data**
+* Accuracy explicitly avoided
+* Evaluation Metric: **Precision-Recall AUC (PR-AUC)**
+* Techniques used:
+* Class weight adjustment (preferred)
+* SMOTE (imbalanced-learn)
 
-![image](https://github.com/rohanmatt/Predictive-Maintenance-for-Industrial-Equipment/assets/77683536/440bea1b-1a6e-40ce-a106-cbe0f475e7c8)
+ 🔹 Model Explainability
+
+* SHAP (SHapley Additive Explanations)
+* Local explanations for each failure prediction
+* Helps maintenance engineers understand *why* a failure is predicted
+
+🔹 Deployment & Inference
+
+* End-to-end pipeline serialized using **joblib**
+* **Flask REST API** for real-time inference
+* Accepts JSON sensor payloads
+* Response latency < **50ms**
+
+
+📂 Project Structure
+
+FactoryGuard-AI/
+│
+├── WEEK 1/
+│   ├── FINAL_PREDICTION.ipynb     # Initial modeling & baseline experiments
+│   ├── Documentation.docx         # Project requirement & design notes
+│   └── machinery_data.xlsx        # Raw sensor dataset
+│
+├── WEEK 2/
+│   └── factoryguard_scaler.pkl    # Saved preprocessing pipeline (scaler)
+│
+├── WEEK 3/
+│   └── factoryguard_xgb_model.pkl # Trained XGBoost production model
+│
+├── WEEK 4/
+│   ├── app.py                     # Flask API for real-time inference
+│   └── style.css                  # Frontend styling
+│
+├── README.md                      # Project documentation
+├── requirements.txt
+├── venv/                          # Virtual environment (should be gitignored)
+└── .ipynb_checkpoints/            # Jupyter checkpoints (should be gitignored)
+
+ 
+📊 Evaluation Metrics
+
+* **Primary Metric:** Precision-Recall AUC (PR-AUC)
+* Precision prioritized to avoid unnecessary maintenance alerts
+* Model validated for stability and latency
 
 
 
+📈 SHAP Explainability Example
 
+> "Failure predicted due to high rolling mean of temperature (>80°C) and sudden spike in vibration variance"
 
+SHAP plots are included to provide **transparent, actionable insights** for maintenance engineers.
 
+ 🏢 Internship Context
 
+* **Organization:** Zaalima Development Pvt. Ltd.
+* **Project Type:** Internship – First  ML Project
+
+ Follow the on-screen instructions to interact with the application, submit input data, and view predictions.
